@@ -23,14 +23,4 @@ public class HelloWorld
 		}
 	}
 
-	private static String callWebsite(String webAddres)
-	{
-		WebRequest request = WebRequest.Create(webAddres);
-		using(WebResponse response = request.GetResponse())
-		{
-			StreamReader reader = new StreamReader(response.GetResponseStream());
-			String responseString = reader.ReadToEnd();
-			return responseString;
-		}
-	}
 }

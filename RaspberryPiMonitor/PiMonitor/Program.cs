@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace PiMonitor
 {
@@ -6,7 +7,7 @@ namespace PiMonitor
 	{
 		public static void Main (string[] args)
 		{
-			Console.WriteLine ("Hello World!");
+
 		}
 	}
 }

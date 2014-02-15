@@ -33,7 +33,14 @@
     <Reference Include="nunit.framework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Test.cs" />
+    <Compile Include="WebUtilityTest.cs" />
+    <Compile Include="TemperatureDS18B20Test.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\PiMonitor\PiMonitor.csproj">
+      <Project>{6B3769F1-B263-40BB-971F-20116F945B86}</Project>
+      <Name>PiMonitor</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
