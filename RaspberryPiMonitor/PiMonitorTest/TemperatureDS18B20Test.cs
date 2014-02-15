@@ -1,12 +1,34 @@
 ﻿using NUnit.Framework;
 using System;
 using PiMonitor;
+using System.IO;
 
 namespace PiMonitorTest
 {
 	[TestFixture ()]
 	public class TemperatureDS18B20Test
 	{
+		[SetUp]
+		public void RunBeforeAnyTests()
+		{
+			File.WriteAllText (_pathToTestFile, RAW_TEMPERATURE_OUTPUT);
+			_temperatureObject = new TemperatureDS18B20 (_pathToTestFile);
+		}
+
+		[TearDown]
+		public void RunAfterAnyTests()
+		{
+			if (File.Exists (_pathToTestFile)) {
+				File.Delete (_pathToTestFile);
+			}
+		}
+
+		[Test]
+		public void Test_TemperatureDS18B20Test_should_return_fahrenheit_from_file()
+		{
+			Assert.AreEqual (_temperatureInFahrenheit, _temperatureObject.Fahrenheit);
+		}
+
 		[Test ()]
 		public void Test_GetTemperatureInCelsius_extracts_celsius_from_raw_output ()
 		{
@@ -32,6 +54,9 @@ namespace PiMonitorTest
 ";
 		private double _temperatureInCelsius = 20.625;
 		private double _temperatureInFahrenheit = 69.125;
+		private string _pathToTestFile = Path.Combine (Environment.GetFolderPath (Environment.SpecialFolder.ApplicationData), 
+			Guid.NewGuid ().ToString());
+		private TemperatureDS18B20 _temperatureObject;
 	}
 }
 

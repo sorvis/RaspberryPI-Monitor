@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.IO;
 
 namespace PiMonitor
 {
@@ -8,8 +9,29 @@ namespace PiMonitor
 	/// </summary>
 	public class TemperatureDS18B20
 	{
-		public TemperatureDS18B20 ()
+		public TemperatureDS18B20 (string pathToDS18B20)
 		{
+			PathToDS18B20 = pathToDS18B20;
+
+			if (string.IsNullOrWhiteSpace (getRawTemperature ())) {
+				throw new Exception ("Unable to read temperature at " + pathToDS18B20);
+			}
+		}
+
+		public double Fahrenheit {
+			get {
+				return GetTemperatureInFahrenheit (getRawTemperature ());
+			}
+		}
+
+		public String PathToDS18B20 {
+			get;
+			private set;
+		}
+
+		private String getRawTemperature()
+		{
+			return File.ReadAllText (PathToDS18B20);
 		}
 
 		public static double GetTemperatureInFahrenheit(String rawTemperatureOutput)
@@ -37,6 +59,7 @@ namespace PiMonitor
 			int numberTemperatureValue = int.Parse (temperatureElement.Split ('=').FirstOrDefault (item => !item.Contains ("t")));
 			return (double)numberTemperatureValue / 1000;
 		}
+
 	}
 }
 
