@@ -12,6 +12,22 @@ namespace PiMonitor
 		{
 		}
 
+		public static double GetTemperatureInFahrenheit(String rawTemperatureOutput)
+		{
+			return ConvertCelsiusToFahrenheit (GetTemperatureInCelsius (rawTemperatureOutput));
+		}
+
+		/// <summary>
+		/// Converts the celsius to fahrenheit.
+		/// Multiply by 9, then divide by 5, then add 32
+		/// </summary>
+		/// <returns>The celsius to fahrenheit.</returns>
+		/// <param name="celsius">Celsius.</param>
+		public static double ConvertCelsiusToFahrenheit(double celsius)
+		{
+			return celsius * 9 / 5 + 32;
+		}
+
 		public static double GetTemperatureInCelsius(String rawTemperatureOutput)
 		{
 			if (!rawTemperatureOutput.Contains ("t=")) {
